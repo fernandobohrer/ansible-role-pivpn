@@ -1,0 +1,8 @@
+---
+- name: Deploy WireGuard
+  ansible.builtin.import_tasks: deploy-wireguard.yml
+  when: deploy_wireguard
+
+- name: Deploy OpenVPN
+  ansible.builtin.import_tasks: deploy-openvpn.yml
+  when: deploy_openvpn

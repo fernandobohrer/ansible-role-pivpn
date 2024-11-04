@@ -1,0 +1,62 @@
+---
+deploy_openvpn: false
+deploy_wireguard: true
+
+vpn_endpoint: vpn.example.com
+# The endpoint in which PiVPN will be listening on.
+
+dns_servers:
+  - 1.1.1.1
+  - 8.8.8.8
+# The DNS servers that PiVPN will use.
+
+pivpn_installation_user: admin
+# The operating system user that will hold your VPN client configuration files.
+# If the user does not exist on your system, PiVPN will create it automatically.
+
+enable_unattended_upgrades: true
+# Should operating system unattended upgrades be enabled?
+
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+# WireGuard configuration options:
+
+wireguard_port: 123
+wireguard_network: 10.150.50.0
+wireguard_netmask: 24
+# Port 123/UDP is reserved for NTP. Running WireGuard on this port increases
+# the likelihood of you being able to connect to your VPN on protected networks.
+
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+# OpenVPN configuration options:
+
+openvpn_port: 443
+openvpn_network: 10.125.25.0
+openvpn_netmask: 24
+# Port 443/TCP is reserved for HTTPS. Running OpenVPN on this port increases
+# the likelihood of you being able to connect to your VPN on protected networks.
+
+openvpn_enable_port_share: false
+# OpenVPN offers a functionality called 'Port Share'. From man 8 openvpn:
+#
+# When run in TCP server mode, share the OpenVPN port with another application,
+# such as an HTTPS server. If OpenVPN senses a connection to its port which is
+# using a non-OpenVPN protocol, it will proxy the connection to  the  server at
+# host:port. Currently only designed to work with HTTP/HTTPS, though it would be
+# theoretically possible to extend to other protocols such as ssh.
+openvpn_port_share_host: 127.0.0.1
+openvpn_port_share_port: 4443
+
+openvpn_certificate_size: 521
+# If the openvpn_use_version_2_4_features is set to true,
+# the openvpn_certificate_size can be either 256, 384 or 521.
+# If the openvpn_use_version_2_4_features is set to false,
+# the openvpn_certificate_size can be either 2048, 3072 or 4096.
+openvpn_use_version_2_4_features: true
+openvpn_use_predefined_dh_parameters: false
+# If the openvpn_use_predefined_dh_parameters is set to false,
+# DH parameters will be generated locally.
+# If the openvpn_use_predefined_dh_parameters is set to true,
+# pre-defined DH parameters will be used.
+openvpn_custom_search_domain:
+
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+

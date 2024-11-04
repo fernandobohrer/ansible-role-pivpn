@@ -1,0 +1,48 @@
+---
+- name: Check if OpenVPN was previously deployed
+  ansible.builtin.stat:
+    path: "{{ __openvpn_configuration_directory }}"
+  register: openvpn_deployed
+
+- name: Deploy OpenVPN
+  when: not openvpn_deployed.stat.exists
+  block:
+    - name: Create the PiVPN temporary directory
+      ansible.builtin.file:
+        path: "{{ __pivpn_tmp_dir }}"
+        state: directory
+        mode: "755"
+
+    - name: Deploy the OpenVPN installation files
+      ansible.builtin.template:
+        src: "{{ item.src }}"
+        dest: "{{ __pivpn_tmp_dir }}/{{ item.dest }}"
+        mode: "644"
+      with_items:
+        - { src: openvpn-installation.conf.j2, dest: openvpn-installation.conf }
+
+    - name: Download the PiVPN installation script
+      ansible.builtin.get_url:
+        url: "{{ __pivpn_installer_url }}"
+        dest: "{{ __pivpn_installation_script }}"
+        mode: "755"
+
+    - name: Run the installation script for OpenVPN
+      ansible.builtin.command: "{{ __pivpn_installation_script }} --unattended {{ __pivpn_tmp_dir }}/{{ item }}"
+      with_items:
+        - openvpn-installation.conf
+      changed_when: false
+
+    - name: Remove the PiVPN temporary directory
+      ansible.builtin.file:
+        path: "{{ __pivpn_tmp_dir }}"
+        state: absent
+
+- name: Enable OpenVPN port-share functionality
+  ansible.builtin.lineinfile:
+    path: /etc/openvpn/server.conf
+    regexp: ^port-share
+    line: port-share {{ openvpn_port_share_host }} {{ openvpn_port_share_port }}
+    backup: true
+  notify: Restart openvpn@server.service
+  when: openvpn_enable_port_share

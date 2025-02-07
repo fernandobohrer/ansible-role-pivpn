@@ -26,7 +26,7 @@ An example of how integrate this role to an Ansible playbook can be found here:
   gather_facts: true
   vars:
     pivpn__vpn_endpoint: vpn.example.com
-    pivpn__dns_servers: [ 1.1.1.1, 8.8.8.8 ]
+    pivpn__dns_servers: [1.1.1.1, 8.8.8.8]
     pivpn__deployment_user: admin
     pivpn__deploy_wgrd: true
     pivpn__wgrd_port: 123

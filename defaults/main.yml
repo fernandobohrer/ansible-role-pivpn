@@ -5,7 +5,7 @@ pivpn__deploy_wgrd: true
 pivpn__vpn_endpoint: vpn.example.com
 # The endpoint in which PiVPN will be listening on.
 
-pivpn__dns_servers: [ 1.1.1.1, 8.8.8.8 ]
+pivpn__dns_servers: [1.1.1.1, 8.8.8.8]
 # The DNS servers that PiVPN will use.
 
 pivpn__deployment_user: admin

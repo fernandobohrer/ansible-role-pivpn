@@ -1,0 +1,17 @@
+
+install_user={{ pivpn__deployment_user }}
+VPN=wireguard
+pivpnPROTO={{ __pivpn__wgrd_protocol }}
+pivpnPORT={{ pivpn__wgrd_port }}
+pivpnDNS1={{ pivpn__dns_servers[0] }}
+pivpnDNS2={{ pivpn__dns_servers[1] }}
+pivpnHOST={{ pivpn__vpn_endpoint }}
+UNATTUPG={{ 1 if ( pivpn__enable_unattended_upgrades == true | default (true) ) else 0 }}
+
+IPv4dev={{ ansible_default_ipv4.interface }}
+
+pivpnenableipv6=0
+pivpnforceipv6route=1
+
+pivpnNET={{ pivpn__wgrd_network }}
+subnetClass={{ pivpn__wgrd_netmask }}

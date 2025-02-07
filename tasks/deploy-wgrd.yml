@@ -1,39 +1,38 @@
 ---
 - name: Check if WireGuard was previously deployed
   ansible.builtin.stat:
-    path: "{{ __wireguard_configuration_directory }}"
-  register: wireguard_deployed
+    path: "{{ __pivpn__wgrd_config_dir }}"
+  register: pivpn__wireguard_deployed
 
 - name: Deploy WireGuard
-  when: not wireguard_deployed.stat.exists
+  when: not pivpn__wireguard_deployed.stat.exists
   block:
     - name: Create the PiVPN temporary directory
-      ansible.builtin.file:
-        path: "{{ __pivpn_tmp_dir }}"
+      ansible.builtin.tempfile:
         state: directory
-        mode: "755"
+      register: pivpn__temp_dir
 
     - name: Deploy the WireGuard installation files
       ansible.builtin.template:
         src: "{{ item.src }}"
-        dest: "{{ __pivpn_tmp_dir }}/{{ item.dest }}"
+        dest: "{{ pivpn__temp_dir }}/{{ item.dest }}"
         mode: "644"
       with_items:
-        - { src: wireguard-installation.conf.j2, dest: wireguard-installation.conf }
+        - { src: wgrd-installation.conf.j2, dest: wgrd-installation.conf }
 
     - name: Download the PiVPN installation script
       ansible.builtin.get_url:
-        url: "{{ __pivpn_installer_url }}"
-        dest: "{{ __pivpn_installation_script }}"
+        url: "{{ __pivpn__installer }}"
+        dest: "{{ pivpn__temp_dir }}/pivpn.bash"
         mode: "755"
 
     - name: Run the installation script for WireGuard
-      ansible.builtin.command: "{{ __pivpn_installation_script }} --unattended {{ __pivpn_tmp_dir }}/{{ item }}"
+      ansible.builtin.command: "{{ pivpn__temp_dir }}/pivpn.bash --unattended {{ pivpn__temp_dir }}/{{ item }}"
       with_items:
-        - wireguard-installation.conf
+        - wgrd-installation.conf
       changed_when: false
 
     - name: Remove the PiVPN temporary directory
       ansible.builtin.file:
-        path: "{{ __pivpn_tmp_dir }}"
+        path: "{{ pivpn__temp_dir }}"
         state: absent

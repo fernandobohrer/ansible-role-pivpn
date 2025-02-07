@@ -1,10 +1,8 @@
 ---
-__pivpn_tmp_dir: /tmp/pivpn
-__pivpn_installer_url: https://install.pivpn.io
-__pivpn_installation_script: "{{ __pivpn_tmp_dir }}/pivpn.bash"
+__pivpn__installer: https://install.pivpn.io
 
-__openvpn_protocol: tcp
-__wireguard_protocol: udp
+__pivpn__ovpn_protocol: tcp
+__pivpn__wgrd_protocol: udp
 
-__openvpn_configuration_directory: /etc/pivpn/openvpn
-__wireguard_configuration_directory: /etc/pivpn/wireguard
+__pivpn__ovpn_config_dir: /etc/pivpn/openvpn
+__pivpn__wgrd_config_dir: /etc/pivpn/wireguard

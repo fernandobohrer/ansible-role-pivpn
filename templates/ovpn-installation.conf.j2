@@ -1,0 +1,22 @@
+
+install_user={{ pivpn__deployment_user }}
+VPN=openvpn
+pivpnPROTO={{ __pivpn__ovpn_protocol }}
+pivpnPORT={{ pivpn__ovpn_port }}
+pivpnDNS1={{ pivpn__dns_servers[0] }}
+pivpnDNS2={{ pivpn__dns_servers[1] }}
+pivpnHOST={{ pivpn__vpn_endpoint }}
+UNATTUPG={{ 1 if ( pivpn__enable_unattended_upgrades == true | default (true) ) else 0 }}
+
+IPv4dev={{ ansible_default_ipv4.interface }}
+
+pivpnenableipv6=0
+pivpnforceipv6route=1
+
+pivpnNET={{ pivpn__ovpn_network }}
+subnetClass={{ pivpn__ovpn_netmask }}
+
+TWO_POINT_FOUR={{ 1 if ( pivpn__ovpn_use_version_24_features == true ) else 0 }}
+pivpnENCRYPT={{ pivpn__ovpn_certificate_size }}
+pivpnSEARCHDOMAIN={{ pivpn__ovpn_custom_search_domain }}
+USE_PREDEFINED_DH_PARAM={{ 0 if ( pivpn__ovpn_use_predefined_dh_parameters == false ) else 1 }}

@@ -42,8 +42,7 @@ Please refer to the documentation available [here][06] for `WireGuard` and [here
 
 This role was tested on and is confirmed to work with the following Linux distributions:
 
-- `Debian 12`
-- `Ubuntu 22.04`
+- `Debian 13`
 - `Ubuntu 24.04`
 
 Details can be found in the [Molecule][08] scenarios available in the `molecule` folder.

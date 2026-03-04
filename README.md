@@ -8,7 +8,7 @@ I wanted to deploy a self-managed VPN service. [PiVPN][01] is a great alternativ
 
 ## 📑 Role Variables
 
-Check [here][05].
+Check [defaults/main.yml][05].
 
 ## 🧰 Dependencies
 
@@ -36,7 +36,7 @@ An example of how integrate this role to an Ansible playbook can be found here:
 
 ## 📋 Usage
 
-Please refer to the documentation available [here][06] for `WireGuard` and [here][07] for `OpenVPN` to get the details of how to use [PiVPN][01].
+Please refer to the documentation available at [docs.pivpn.io/wireguard][06] for `WireGuard` and at [docs.pivpn.io/openvpn][07] for `OpenVPN` to get the details of how to use [PiVPN][01].
 
 ## ⚙️ Compatibility
 

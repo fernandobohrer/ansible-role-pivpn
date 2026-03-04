@@ -4,7 +4,7 @@ An Ansible role that deploys and configures [PiVPN][01] on Linux boxes.
 
 ## 🚀 Motivation
 
-I wanted to deploy a self-managed VPN service. [PiVPN][01] is a great alternative for this use case as it supports both [WireGuard][02] and [OpenVPN][03] and differently from what the name of the project suggests, [PiVPN][01] is not meant *only* for [Raspberry Pi][04] based environments.
+I wanted to deploy a self-managed VPN service. [PiVPN][01] is a great alternative for this use case as it supports both [WireGuard][02] and [OpenVPN][03] and differently from what the name of the project suggests, [PiVPN][01] is not meant _only_ for [Raspberry Pi][04] based environments.
 
 ## 📑 Role Variables
 
